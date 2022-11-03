@@ -53,6 +53,18 @@ function init() {
                         init();
                     })
                     break;
+                case 'Quit':
+                    process.kill(process.pid, 'SIGINT');
+                    break;
+                case 'Add an Employee':
+                    addEmployee();
+                    break;
+                case 'Add a Role':
+                    addRole();
+                    break;
+                case 'Add a Department':
+                    addDepartment();
+                    break;
                 default:
                     console.log(`ERROR. response.menu returning:\n ${response.role}`)
             }
