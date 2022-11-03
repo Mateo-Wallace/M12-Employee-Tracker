@@ -1,3 +1,5 @@
+-- this file adds starting users to the database
+
 USE employee_tracker_db;
 
 INSERT INTO department (name)

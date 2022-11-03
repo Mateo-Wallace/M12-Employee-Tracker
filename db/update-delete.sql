@@ -1,8 +1,8 @@
-USE employee_tracker_db;
-
 -- This sheet creates an example insert user.
 -- Allows you to update the first name of said example user.
 -- And then deletes said example user.
+
+USE employee_tracker_db;
 
 -- Add new user via INSERT
 INSERT INTO employee (first_name, last_name, role_id, manager_id)

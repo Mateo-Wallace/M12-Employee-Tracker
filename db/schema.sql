@@ -1,3 +1,5 @@
+-- This file creates the database and the tables stored within
+
 DROP DATABASE IF EXISTS employee_tracker_db;
 CREATE DATABASE employee_tracker_db;
 
@@ -11,8 +13,8 @@ CREATE TABLE department (
 CREATE TABLE role (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(30) NOT NULL,
-    salary DECIMAL NOT NULL,
     department_id INT,
+    salary DECIMAL NOT NULL,
     FOREIGN KEY (department_id)
     REFERENCES department(id)
     ON DELETE SET NULL
