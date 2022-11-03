@@ -1,0 +1,28 @@
+{
+  "name": "m12-employee-tracker",
+  "version": "1.0.0",
+  "description": "CLI application to keep track of employees using mysql",
+  "main": "server.js",
+  "scripts": {
+    "test": "jest",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mateo-Wallace/M12-Employee-Tracker.git"
+  },
+  "keywords": [
+    "mysql"
+  ],
+  "author": "Mateo Wallace",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Mateo-Wallace/M12-Employee-Tracker/issues"
+  },
+  "homepage": "https://github.com/Mateo-Wallace/M12-Employee-Tracker#readme",
+  "dependencies": {
+    "console.table": "^0.10.0",
+    "inquirer": "^8.2.4",
+    "mysql2": "^2.3.3"
+  }
+}
