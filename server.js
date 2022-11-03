@@ -5,7 +5,7 @@ const mysql = require('mysql2');
 
 // Local Modules
 const { menuQuestions, example } = require('./lib/questions')
-const { employees, example2 } = require('./lib/sql-queries')
+const { employees, roles, departments } = require('./lib/sql-queries')
 
 const db = mysql.createConnection(
     {
@@ -34,6 +34,20 @@ function init() {
             switch (response.menu) {
                 case 'View All Employees':
                     db.query(employees, function (err, results) {
+                        console.log('\n');
+                        console.table(results);
+                        init();
+                    })
+                    break;
+                case 'View All Roles':
+                    db.query(roles, function (err, results) {
+                        console.log('\n');
+                        console.table(results);
+                        init();
+                    })
+                    break;
+                case 'View All Departments':
+                    db.query(departments, function (err, results) {
                         console.log('\n');
                         console.table(results);
                         init();

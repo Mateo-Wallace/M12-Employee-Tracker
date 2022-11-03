@@ -1,6 +1,8 @@
 # M12-Employee-Tracker
 Command Line Application that uses mySQL to store data about employees.
 
+https://learnsql.com/blog/sql-recursive-cte/
+
 # 12 SQL: Employee Tracker
 
 ## Your Task
