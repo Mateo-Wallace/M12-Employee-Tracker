@@ -4,8 +4,8 @@ const inquirer = require('inquirer');
 const mysql = require('mysql2');
 
 // Local Modules
-const { menuQuestions, addEmpQuest } = require('./lib/questions')
-const { employees, roles, departments } = require('./lib/sql-queries')
+const { menuQuestions, addEmpQuest, addDeptQuest } = require('./lib/questions')
+const { employees, roles, departments, addDeptQuery } = require('./lib/sql-queries')
 
 // Connects user to existing database named employee_tracker_db
 const db = mysql.createConnection(
@@ -18,8 +18,16 @@ const db = mysql.createConnection(
     console.log(`Connected to the employee_tracker_db database.`)
 );
 
+// Creates new Department
 function addDepartment() {
-
+    inquirer
+        .prompt(addDeptQuest)
+        .then((response) => {
+            db.query(addDeptQuery, response.name, function (err, results) {
+                console.log(`\n New Department added as: ${response.name} \n`);
+                init();
+            })
+        });
 };
 
 function addRole() {
@@ -31,9 +39,8 @@ function addEmployee() {
 
     // determines current departments
     var rolesArray = [];
-    var departmentsArray = [];
     db.query('SELECT title FROM role', (err, results) => {
-        for (i=0; i < results.length; i++) {
+        for (i = 0; i < results.length; i++) {
             rolesArray.push(results[i].title);
         }
         console.log(rolesArray);
@@ -44,7 +51,7 @@ function addEmployee() {
         .prompt(addEmpQuest)
         // runs query to database to append new employee
         .then((response) => {
-            
+
         });
 };
 
