@@ -4,8 +4,8 @@ const inquirer = require('inquirer');
 const mysql = require('mysql2');
 
 // Local Modules
-const { menuQuestions, addEmpQuest, addDeptQuest } = require('./lib/questions')
-const { employees, roles, departments, addDeptQuery } = require('./lib/sql-queries')
+const { menuQuestions, addEmpQuest, addDeptQuest, addRoleQuest } = require('./lib/questions')
+const { employees, roles, departments, addDeptQuery, addRoleQuery } = require('./lib/sql-queries')
 
 // Connects user to existing database named employee_tracker_db
 const db = mysql.createConnection(
@@ -30,8 +30,24 @@ function addDepartment() {
         });
 };
 
+// Creates new Role
 function addRole() {
-
+    inquirer
+        .prompt(addRoleQuest)
+        .then((response) => {
+            db.query('SELECT title FROM role', (err, results) => {
+                for (i = 0; i < results.length; i++) {
+                    rolesArray.push(results[i].title);
+                }
+                console.log(rolesArray);
+            });
+        })
+        .then((response) => {
+            db.query(addRoleQuery, response.title, "response.deptId var", response.salary, function (err, results) {
+                console.log(`\n New Role added as: ${response.title} \n`);
+                init();
+            })
+        });
 };
 
 // Creates new employee
