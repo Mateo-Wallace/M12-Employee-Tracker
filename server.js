@@ -118,7 +118,12 @@ function updateEmployeeRole() {
                 .prompt(updateEmpRoleQuest(rolesArray, employeesArray))
                 .then((response) => {
                     db.query(`select id from role where title = ?`, response.role, function (err, results) {
-                        
+                        var roleId = results[0].id;
+                        console.log(roleId)
+                        db.query(`UPDATE employee SET role_id = ? WHERE concat(first_name, ' ', last_name) = ?;`, [roleId, response.name], function (err, results) {
+                            console.log(`\n Employee Role Updated \n`);
+                            init();
+                        })
                     })
                 })
 
