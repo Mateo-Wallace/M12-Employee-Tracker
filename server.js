@@ -32,23 +32,31 @@ function addDepartment() {
 
 // Creates new Role
 function addRole() {
-    inquirer
-        .prompt(addRoleQuest)
-        .then((response) => {
-            db.query('SELECT title FROM role', (err, results) => {
-                for (i = 0; i < results.length; i++) {
-                    rolesArray.push(results[i].title);
-                }
-                console.log(rolesArray);
-            });
-        })
-        .then((response) => {
-            db.query(addRoleQuery, response.title, "response.deptId var", response.salary, function (err, results) {
-                console.log(`\n New Role added as: ${response.title} \n`);
-                init();
-            })
-        });
+    var deptArray = [];
+    db.query('SELECT name FROM department', (err, results) => {
+        for (i = 0; i < results.length; i++) {
+            deptArray.push(results[i].name);
+        }
+        addRolePart2(deptArray);
+    });
 };
+
+function addRolePart2(deptArray) {
+    inquirer
+    .prompt(addRoleQuest(deptArray))
+    .then((response) => {
+        db.query(`SELECT id FROM department WHERE name = ?`, response.deptId, function (err, results) {
+            addRolePart3(response, results[0].id)
+        })
+    })
+}
+
+function addRolePart3(response, deptId) {
+    db.query(addRoleQuery, [response.title, deptId, +response.salary], function (err, results) {
+        console.log(`\n New Role added as: ${response.title} \n`);
+        init();
+    })
+}
 
 // Creates new employee
 function addEmployee() {

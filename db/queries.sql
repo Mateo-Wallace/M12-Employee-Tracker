@@ -35,3 +35,6 @@ FROM department;
 SELECT role.id, role.title, department.name AS department, role.salary
 FROM role
 JOIN department ON role.department_id = department.id;
+
+-- Select Specific Item
+SELECT id FROM department WHERE name = 'Sales'
