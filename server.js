@@ -4,7 +4,7 @@ const inquirer = require('inquirer');
 const mysql = require('mysql2');
 
 // Local Modules
-const { menuQuestions, addEmpQuest, addDeptQuest, addRoleQuest } = require('./lib/questions')
+const { menuQuestions, addEmpQuest, addDeptQuest, addRoleQuest, updateEmpRoleQuest } = require('./lib/questions')
 const { employees, roles, departments, addDeptQuery, addRoleQuery, addEmployeeQuery } = require('./lib/sql-queries')
 
 // Connects user to existing database named employee_tracker_db
@@ -103,6 +103,29 @@ function addEmployeePart3(response, roleId, managerId) {
     })
 }
 
+function updateEmployeeRole() {
+    var rolesArray = [];
+    var employeesArray = [];
+    db.query('SELECT title FROM role', (err, results) => {
+        for (i = 0; i < results.length; i++) {
+            rolesArray.push(results[i].title);
+        }
+        db.query(`select concat(first_name, ' ', last_name) as employee from employee`, (err, results) => {
+            for (i = 0; i < results.length; i++) {
+                employeesArray.push(results[i].employee);
+            }
+            inquirer
+                .prompt(updateEmpRoleQuest(rolesArray, employeesArray))
+                .then((response) => {
+                    db.query(`select id from role where title = ?`, response.role, function (err, results) {
+                        
+                    })
+                })
+
+        });
+    });
+}
+
 // Asks menu questions.
 function init() {
     inquirer
@@ -149,6 +172,9 @@ function init() {
                 // asks new department questions
                 case 'Add a Department':
                     addDepartment();
+                    break;
+                case 'Update Employee Role':
+                    updateEmployeeRole();
                     break;
                 default:
                     console.log(`ERROR. response.menu returning:\n ${response.role}`)
