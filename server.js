@@ -70,7 +70,7 @@ function addEmployee() {
             for (i = 0; i < results.length; i++) {
                 managersArray.push(results[i].manager);
             }
-            managersArray.push(null);
+            managersArray.push('null');
             addEmployeePart2(rolesArray, managersArray);
         });
     });
@@ -80,11 +80,18 @@ function addEmployeePart2(rolesArray, managersArray) {
     inquirer
         .prompt(addEmpQuest(rolesArray, managersArray))
         .then((response) => {
-            db.query(`SELECT id FROM department WHERE name = ?`, response.deptId, function (err, results) {
-                var roleId = results.role;
-                db.query(`SELECT id FROM department WHERE name = ?`, response.deptId, function (err, results) {
-                    addEmployeePart3(response, roleId, results[0].id)
-                })
+            db.query(`select id from role where title = ?`, response.role, function (err, results) {
+                var roleId = results[0].id;
+                var managerId = response.manager;
+                if (managerId !== 'null') {
+                    db.query(`select id from employee where concat(first_name, ' ', last_name)  = ?`, response.manager, function (err, results) {
+                        manager = results[0].id;
+                        addEmployeePart3(response, roleId, managerId);
+                    })
+                } else {
+                    managerId = null;
+                    addEmployeePart3(response, roleId, managerId);
+                }
             })
         })
 }
