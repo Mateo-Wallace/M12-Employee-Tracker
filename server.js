@@ -5,7 +5,7 @@ const mysql = require('mysql2');
 
 // Local Modules
 const { menuQuestions, addEmpQuest, addDeptQuest, addRoleQuest } = require('./lib/questions')
-const { employees, roles, departments, addDeptQuery, addRoleQuery } = require('./lib/sql-queries')
+const { employees, roles, departments, addDeptQuery, addRoleQuery, addEmployeeQuery } = require('./lib/sql-queries')
 
 // Connects user to existing database named employee_tracker_db
 const db = mysql.createConnection(
@@ -94,6 +94,13 @@ function addEmployeePart2(rolesArray, managersArray) {
                 }
             })
         })
+}
+
+function addEmployeePart3(response, roleId, managerId) {
+    db.query(addEmployeeQuery, [response.firstName, response.lastName, roleId, managerId], function (err, results) {
+        console.log(`\n New Employee added as: ${response.firstName} \n`);
+        init();
+    })
 }
 
 // Asks menu questions.
