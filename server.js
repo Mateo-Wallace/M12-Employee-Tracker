@@ -85,7 +85,7 @@ function addEmployeePart2(rolesArray, managersArray) {
                 var managerId = response.manager;
                 if (managerId !== 'null') {
                     db.query(`select id from employee where concat(first_name, ' ', last_name)  = ?`, response.manager, function (err, results) {
-                        manager = results[0].id;
+                        managerId = results[0].id;
                         addEmployeePart3(response, roleId, managerId);
                     })
                 } else {
