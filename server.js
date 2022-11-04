@@ -43,12 +43,12 @@ function addRole() {
 
 function addRolePart2(deptArray) {
     inquirer
-    .prompt(addRoleQuest(deptArray))
-    .then((response) => {
-        db.query(`SELECT id FROM department WHERE name = ?`, response.deptId, function (err, results) {
-            addRolePart3(response, results[0].id)
+        .prompt(addRoleQuest(deptArray))
+        .then((response) => {
+            db.query(`SELECT id FROM department WHERE name = ?`, response.deptId, function (err, results) {
+                addRolePart3(response, results[0].id)
+            })
         })
-    })
 }
 
 function addRolePart3(response, deptId) {
@@ -60,24 +60,34 @@ function addRolePart3(response, deptId) {
 
 // Creates new employee
 function addEmployee() {
-
-    // determines current departments
     var rolesArray = [];
+    var managersArray = [];
     db.query('SELECT title FROM role', (err, results) => {
         for (i = 0; i < results.length; i++) {
             rolesArray.push(results[i].title);
         }
-        console.log(rolesArray);
-    });
-
-    // asks new employee data questions
-    inquirer
-        .prompt(addEmpQuest)
-        // runs query to database to append new employee
-        .then((response) => {
-
+        db.query(`select concat(first_name, ' ', last_name) as manager from employee where manager_id is NULL`, (err, results) => {
+            for (i = 0; i < results.length; i++) {
+                managersArray.push(results[i].manager);
+            }
+            managersArray.push(null);
+            addEmployeePart2(rolesArray, managersArray);
         });
+    });
 };
+
+function addEmployeePart2(rolesArray, managersArray) {
+    inquirer
+        .prompt(addEmpQuest(rolesArray, managersArray))
+        .then((response) => {
+            db.query(`SELECT id FROM department WHERE name = ?`, response.deptId, function (err, results) {
+                var roleId = results.role;
+                db.query(`SELECT id FROM department WHERE name = ?`, response.deptId, function (err, results) {
+                    addEmployeePart3(response, roleId, results[0].id)
+                })
+            })
+        })
+}
 
 // Asks menu questions.
 function init() {
