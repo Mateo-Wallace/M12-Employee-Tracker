@@ -15,7 +15,7 @@ While building this project I learned to:
 
 ### Built With
 
-[![mySQL Shield](https://img.shields.io/badge/mySQL-4479A1?&style=for-the-badge&logo=mysql&logoColor=white)](https://jquery.com/) [![JavaScript Shield](https://img.shields.io/badge/JavaScript-F7DF1E?&style=for-the-badge&logo=javascript&logoColor=272727)](https://developer.mozilla.org/en-US/docs/Web/JavaScript) [![Node.js Shield](https://img.shields.io/badge/Node.js-339933?&style=for-the-badge&logo=node.js&logoColor=white)](https://nodejs.org/en/) [![jQuery Shield](https://img.shields.io/badge/jQuery-0769AD?&style=for-the-badge&logo=jquery&logoColor=white)](https://jquery.com/)
+[![mySQL Shield](https://img.shields.io/badge/mySQL-4479A1?&style=for-the-badge&logo=mysql&logoColor=white)](https://www.mysql.com/) [![JavaScript Shield](https://img.shields.io/badge/JavaScript-F7DF1E?&style=for-the-badge&logo=javascript&logoColor=272727)](https://developer.mozilla.org/en-US/docs/Web/JavaScript) [![Node.js Shield](https://img.shields.io/badge/Node.js-339933?&style=for-the-badge&logo=node.js&logoColor=white)](https://nodejs.org/en/) [![jQuery Shield](https://img.shields.io/badge/jQuery-0769AD?&style=for-the-badge&logo=jquery&logoColor=white)](https://jquery.com/)
 
 ## Table of Contents
 - [Installation](#installation)
